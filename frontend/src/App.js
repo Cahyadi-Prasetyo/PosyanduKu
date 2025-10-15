@@ -1,50 +1,40 @@
-import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "./components/ui/sonner";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Public Pages
+import Home from "./pages/Home";
+import JadwalPublic from "./pages/JadwalPublic";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+// Admin Pages
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminJadwal from "./pages/admin/AdminJadwal";
+import AdminPeserta from "./pages/admin/AdminPeserta";
+import AdminLaporan from "./pages/admin/AdminLaporan";
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+// Protected Route Component
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <div className="App">
+      <Toaster position="top-center" richColors />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/jadwal" element={<JadwalPublic />} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/jadwal" element={<ProtectedRoute><AdminJadwal /></ProtectedRoute>} />
+          <Route path="/admin/peserta" element={<ProtectedRoute><AdminPeserta /></ProtectedRoute>} />
+          <Route path="/admin/laporan" element={<ProtectedRoute><AdminLaporan /></ProtectedRoute>} />
+          
+          {/* Redirect admin to dashboard */}
+          <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         </Routes>
       </BrowserRouter>
     </div>

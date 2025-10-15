@@ -1,34 +1,69 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+:root {
+  --radius-xxs: 4px;
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 2px 8px rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 8px 24px rgba(16, 24, 40, 0.12);
+  --container-max: 1200px;
+  --gap: 24px;
+  --btn-radius: 12px;
+  --btn-shadow: 0 2px 6px rgba(19, 95, 175, 0.18);
+  --focus-ring: 2px solid #135FAF;
+  
+  --bg: #FFFFFF;
+  --bg-muted: #F5FAFD;
+  --bg-mint: #E8F7F2;
+  --bg-sky: #EAF3FF;
+  --fg: #0B1020;
+  --fg-muted: #334155;
+  --primary: #1674D1;
+  --primary-600: #135FAF;
+  --primary-50: #E8F2FF;
+  --mint: #34C6A3;
+  --mint-700: #1C9078;
+  --accent: #48B7E2;
+  --warning: #F59E0B;
+  --success: #10B981;
+  --error: #DC2626;
+  --border: #E5EEF7;
+  --ring: #135FAF;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.text-contrast {
+  color: var(--fg);
 }
 
-.App-link {
-    color: #61dafb;
+.card-surface {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: saturate(120%) blur(6px);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Mode Lansia */
+:root[data-senior="on"] {
+  font-size: 18px;
+}
+
+@media (min-width: 768px) {
+  :root[data-senior="on"] {
+    font-size: 19px;
+  }
+}
+
+/* Smooth transitions */
+button,
+a {
+  transition-property: color, background-color, border-color, opacity, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
